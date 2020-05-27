@@ -5,24 +5,31 @@ main() {
   runApp(new PerguntaApp());
 }
 
-class PerguntaApp extends StatelessWidget {
+class _PerguntaAppState extends State<PerguntaApp> {
+  final perguntas = [
+    'Qual é a sua cor favorita?',
+    'Qual é o seu animal favorito?',
+    'Qual é a sua comida favorita?',
+  ];
 
-  void responder() {
+  var _perguntaSelecionada = 0;
+
+  void _responder() {
+    setState(() {
+      _perguntaSelecionada++;
+
+      print(perguntas.length);
+
+      if (_perguntaSelecionada >= perguntas.length) {
+        _perguntaSelecionada = 0;
+      }
+    });
+
     print('Pergunta respondida');
   }
 
-  void Function() funcaoQueRetornaUmaOutraFuncao() {
-    return () {
-      print('Pergunta respondida 2');
-    };
-  }
-
-  @override
+  @override 
   Widget build(BuildContext context) {
-    final perguntas = [
-      'Qual é a sua cor favorita?',
-      'Qual é o seu animal favorito?',
-    ];
 
     return MaterialApp(
       home: Scaffold(
@@ -31,22 +38,30 @@ class PerguntaApp extends StatelessWidget {
         ),
         body: Column(
           children: <Widget>[
-            Text(perguntas[0]),
+            Text(perguntas[_perguntaSelecionada]),
             RaisedButton(
               child: Text('Resposta 1'),
-              onPressed: responder,
+              onPressed: _responder,
             ),
             RaisedButton(
               child: Text('Resposta 2'),
-              onPressed:  responder,
+              onPressed:  _responder,
             ),
             RaisedButton(
               child: Text('Resposta 3'),
-              onPressed:  funcaoQueRetornaUmaOutraFuncao(),
+              onPressed:  null,
             ),
           ],
         ),
       ),
     );
   }
+}
+
+class PerguntaApp extends StatefulWidget {
+
+  _PerguntaAppState createState() {
+    return new _PerguntaAppState();
+  }
+
 }
