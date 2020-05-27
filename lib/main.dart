@@ -20,14 +20,10 @@ class _PerguntaAppState extends State<PerguntaApp> {
     setState(() {
       _perguntaSelecionada++;
 
-      print(perguntas.length);
-
       if (_perguntaSelecionada >= perguntas.length) {
         _perguntaSelecionada = 0;
       }
     });
-
-    print('Pergunta respondida');
   }
 
   @override 
@@ -41,9 +37,9 @@ class _PerguntaAppState extends State<PerguntaApp> {
         body: Column(
           children: <Widget>[
             Questao(perguntas[_perguntaSelecionada]),
-            Resposta('Resposta 1'),
-            Resposta('Resposta 2'),
-            Resposta('Resposta 3'),
+            new Resposta('Resposta 1', _responder),
+            new Resposta('Resposta 2', _responder),
+            new Resposta('Resposta 3', _responder),
           ],
         ),
       ),
