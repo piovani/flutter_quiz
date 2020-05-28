@@ -13,10 +13,6 @@ class _PerguntaAppState extends State<PerguntaApp> {
   void _responder() {
     setState(() {
       _perguntaSelecionada++;
-
-      if (_perguntaSelecionada >= perguntas.length) {
-        _perguntaSelecionada = 0;
-      }
     });
   }
 
@@ -37,6 +33,12 @@ class _PerguntaAppState extends State<PerguntaApp> {
       }
     ];
 
+    List<Widget> respostas = [];
+
+    for(var textoResp in perguntas[_perguntaSelecionada]['respostas']) {
+      respostas.add(Resposta(textoResp, _responder));
+    }
+
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
@@ -45,10 +47,7 @@ class _PerguntaAppState extends State<PerguntaApp> {
         body: Column(
           children: <Widget>[
             Questao(perguntas[_perguntaSelecionada]['texto']),
-            new Resposta(perguntas[_perguntaSelecionada]['respostas']['0'], _responder),
-            new Resposta(perguntas[_perguntaSelecionada]['respostas']['1'], _responder),
-            new Resposta(perguntas[_perguntaSelecionada]['respostas']['2'], _responder),
-            new Resposta(perguntas[_perguntaSelecionada]['respostas']['3'], _responder),
+            ...respostas
           ],
         ),
       ),
